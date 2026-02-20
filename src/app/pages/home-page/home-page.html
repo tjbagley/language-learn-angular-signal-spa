@@ -1,0 +1,14 @@
+<div class="home-page">
+  <section class="centered-container">
+    <h1>Language Learn</h1>
+    <button (click)="handleNewLanguageClick()" type="button">New Language</button>
+
+    <label for="file-upload" class="btn">Load Language From File</label>
+    <input
+      (change)="handleFileUploadChange($event)"
+      class="home-page__file-input"
+      id="file-upload"
+      type="file"
+    />
+  </section>
+</div>

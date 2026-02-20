@@ -1,0 +1,25 @@
+<section class="centered-container">
+  <div class="category-edit-page">
+    <form class="edit-form" [formGroup]="categoryFormGroup">
+      <h1>{{headingPrefix()}} Category</h1>
+
+      <input type="hidden" formControlName="id" />
+      
+      <div class="edit-form__row">
+        <label for="description">Description</label>
+        <input type="text" id="description" formControlName="description" />
+        @if (hasError("description")) {
+          <div class="form-error">A description is required</div>
+        }
+      </div>
+
+      <div class="edit-form__buttons">
+        <input type="button" value="Save" (click)="handleSubmit()"/>
+        <input type="button" value="Cancel" (click)="handleCancel()"/>
+        @if (!isAddMode()) {
+          <input type="button" class="button--link" value="Delete" (click)="handleDelete()"/>
+        }
+      </div>
+    </form>
+  </div>
+</section>

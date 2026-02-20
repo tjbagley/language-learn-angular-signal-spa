@@ -1,0 +1,8 @@
+<section class="centered-container">
+  <app-section-header heading="Categories" buttonLabel="Add" (buttonClickEvent)="handleAddClick()" />
+  <ul>
+    @for (item of categoriesStore.categories(); track item.id) {
+      <li (click)="handleCategoryClick(item.id)">{{item.description}}</li>
+    }
+  </ul>
+</section>

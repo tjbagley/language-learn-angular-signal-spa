@@ -1,0 +1,13 @@
+<section class="centered-container">
+  <app-section-header [heading]="list?.description ?? ''" buttonLabel="Edit" (buttonClickEvent)="handleEditClick()"/>
+  <ul class="word-list-view__items">
+    @for (item of list?.items; track $index) {
+      <li (click)="handleWordClick(item.wordOrPhraseId)">
+        @if (item.actor) {
+          <span class="word-list-view__actor">{{item.actor}}</span>
+        }
+        <app-word-phrase-list-view [wordOrPhrase]="getWordOrPhraseDisplay(item.wordOrPhraseId)" />
+      </li>
+    }
+  </ul>
+</section>

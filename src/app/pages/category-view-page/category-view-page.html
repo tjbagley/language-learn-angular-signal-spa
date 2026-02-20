@@ -1,0 +1,11 @@
+<section class="centered-container">
+  <app-section-header [heading]="category?.description ?? ''" buttonLabel="Edit" (buttonClickEvent)="handleEditClick()"/>
+  <ul>
+    @for (item of wordsAndPhrases; track item.id) 
+    {
+      <li (click)="handleWordOrPhraseClick(item.id)">
+        <app-word-phrase-list-view [wordOrPhrase]="item" />
+      </li>
+    }
+  </ul>
+</section>

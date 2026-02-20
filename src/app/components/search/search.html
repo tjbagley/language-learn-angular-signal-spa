@@ -1,0 +1,25 @@
+<div class="search">
+  <div class="search__controls">
+    <div class="search__field-wrapper">
+      <input
+        class="search__field"
+        [placeholder]="placeholder()"
+        type="text" 
+        [value]="searchValue()"
+        (input)="searchValue.set($any($event.target).value)"
+      />
+      <button class="search__clear-btn" (click)="clearSearchInput()" type="button">×</button>
+    </div>
+    @if (!embedded()) {
+      <button (click)="handleAddClick()" type="button">Add</button>
+    }
+  </div>
+  
+  <ul [class.list--no-row-click]="embedded()">
+  @for (item of wordsAndPhrasesStore.wordsBySearchQuery(); track item.id) {
+    <li (click)="handleWordClick(item.id)">
+      <app-word-phrase-list-view [wordOrPhrase]="item" [embedded]="embedded()" (addButtonClickEvent)="handleEmbeddedAddClick($event)" />
+    </li>
+  }
+  </ul>
+</div>

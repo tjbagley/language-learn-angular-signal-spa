@@ -1,0 +1,25 @@
+<section class="centered-container">
+  <div class="learn-page">
+    <div class="learn-page__word">
+      <h1 tabIndex={-1}>{{wordsAndPhrasesStore.learn().wordToLearn?.value}}</h1>
+      <div class="learn-page__sounds-like">{{wordsAndPhrasesStore.learn().wordToLearn?.soundsLike}}</div>
+    </div>
+    @if (!selectedWord()) {
+      <div class="learn-page__choices">
+        @for (item of randomisedChoices();track item.id) {
+          <button type="button" (click)="handleChoiceClick(item)">{{item.meaning}}</button>
+        }
+      </div>
+    }
+    @else {
+      @if (selectedWord()?.id === wordsAndPhrasesStore.learn().wordToLearn?.id) {
+        <div class="learn-page__feedback--correct">Correct!</div>
+      }
+      @else {
+        <div class="learn-page__feedback--incorrect">Incorrect</div>
+        <div>Meaning: {{wordsAndPhrasesStore.learn().wordToLearn?.meaning}}</div>
+      }
+      <button class="learn-page__next-button" (click)="handleNextClick()" type="button">Next</button>
+    }
+  </div>
+</section>

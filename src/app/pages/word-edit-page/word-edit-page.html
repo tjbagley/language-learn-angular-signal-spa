@@ -1,0 +1,51 @@
+<section class="centered-container">
+  <div class="word-edit-page">
+    <form class="edit-form" [formGroup]="wordFormGroup">
+      <h1>{{headingPrefix()}} Word or Phrase</h1>
+
+      <input type="hidden" formControlName="id" />
+      
+      <div class="edit-form__row">
+        <label for="value">Word or Phrase</label>
+        <input type="text" id="value" formControlName="value" />
+        @if (hasError("value")) {
+          <div class="form-error">A word or phrase is required</div>
+        }
+      </div>
+
+      <div class="edit-form__row">
+        <label for="soundsLike">Sounds Like</label>
+        <input type="text" id="soundsLike" formControlName="soundsLike" />
+      </div>
+
+      <div class="edit-form__row">
+        <label for="meaning">Meaning</label>
+        <input type="text" id="meaning" formControlName="meaning" />
+        @if (hasError("meaning")) {
+          <div class="form-error">Meaning is required</div>
+        }
+      </div>
+
+      <div class="edit-form__row">
+        <label for="categories">Category</label>
+        <select id="categories" formControlName="categories" multiple>
+          @for (item of categoriesStore.categories(); track item.id) {
+            <option [value]="item.id">{{item.description}}</option>
+          }
+          <option></option>
+        </select>
+        @if (hasError("categories")) {
+          <div class="form-error">At least one category is required</div>
+        }
+      </div>
+
+      <div class="edit-form__buttons">
+        <input type="button" value="Save" (click)="handleSubmit()"/>
+        <input type="button" value="Cancel" (click)="handleCancel()"/>
+        @if (!isAddMode()) {
+          <input type="button" class="button--link" value="Delete" (click)="handleDelete()"/>
+        }
+      </div>
+    </form>
+  </div>
+</section>

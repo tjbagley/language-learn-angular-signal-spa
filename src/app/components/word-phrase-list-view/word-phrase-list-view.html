@@ -1,0 +1,17 @@
+<div class="word-phrase-list-view">
+  <div class="word-phrase-list-view__value">{{wordOrPhrase().value}}</div>
+  <div class="word-phrase-list-view__sounds-like">{{wordOrPhrase().soundsLike}}</div>
+  <div class="word-phrase-list-view__meaning">{{wordOrPhrase().meaning}}</div>
+  <div class="word-phrase-list-view__info" (click)="$event.stopPropagation()">
+    @if (!embedded()) {
+      @if (wordOrPhrase().learn?.level) {
+        <div class="word-phrase-list-view__level">learn level: {{wordOrPhrase().learn?.level}}</div>
+      }
+      <a href="https://translate.google.com/?sl=fr&tl=en&text={{translateText()}}&op=translate" target="_blank" rel="noreferrer">
+        <img src="sound.svg" alt="Google Translate" />
+      </a>
+    } @else {
+      <button type="button" (click)="handleAddClick()">Add</button>
+    }
+  </div>
+</div>
