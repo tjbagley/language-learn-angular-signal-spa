@@ -36,11 +36,13 @@ export class Search {
   }
 
   handleAddClick(): void {
+    this.wordsAndPhrasesStore.setWordEditReturnRoute('/words');
     this.router.navigate(['/words', 'new']);
   }
 
   handleWordClick(id: string): void {
     if (!this.embedded()) {
+      this.wordsAndPhrasesStore.setWordEditReturnRoute('/words');
       this.router.navigate(['/words', id]);
     }
   }

@@ -1,12 +1,10 @@
 <section class="centered-container">
   <div class="category-edit-page">
     <form class="edit-form" [formGroup]="categoryFormGroup">
-      <h1>{{headingPrefix()}} Category</h1>
-
       <input type="hidden" formControlName="id" />
       
       <div class="edit-form__row">
-        <label for="description">Description</label>
+        <label for="description">Category description</label>
         <input type="text" id="description" formControlName="description" />
         @if (hasError("description")) {
           <div class="form-error">A description is required</div>

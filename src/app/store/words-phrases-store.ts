@@ -94,6 +94,11 @@ export const WordsAndPhrasesStore = signalStore(
     removeWordOrPhrase: (id: string) => {
       patchState(store, {values: store.values().filter(w => w.id !== id), searchQuery: ''});
     },
+    removeCategory: (categoryId: string) => {
+      store.values().forEach(w => {
+        w.categories = w.categories.filter(cid => cid !== categoryId);
+      });
+    },
     setupWordToLearn: (wordIds: string[]) => {
       const wordsInList = !!wordIds && wordIds.length > 0 ? store.values().filter(word => 
         wordIds.includes(word.id)

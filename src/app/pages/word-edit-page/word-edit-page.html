@@ -1,8 +1,6 @@
 <section class="centered-container">
   <div class="word-edit-page">
     <form class="edit-form" [formGroup]="wordFormGroup">
-      <h1>{{headingPrefix()}} Word or Phrase</h1>
-
       <input type="hidden" formControlName="id" />
       
       <div class="edit-form__row">
@@ -14,7 +12,7 @@
       </div>
 
       <div class="edit-form__row">
-        <label for="soundsLike">Sounds Like</label>
+        <label for="soundsLike">Sounds like</label>
         <input type="text" id="soundsLike" formControlName="soundsLike" />
       </div>
 

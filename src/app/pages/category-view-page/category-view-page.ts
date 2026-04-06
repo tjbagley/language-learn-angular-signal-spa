@@ -22,6 +22,7 @@ export class CategoryViewPage {
   wordsAndPhrases = this.wordsAndPhrasesStore.searchByCategoryId(this.id ?? '');
 
   handleWordOrPhraseClick(id: string): void {
+    this.wordsAndPhrasesStore.setWordEditReturnRoute('/category-view', this.id ?? '');
     this.router.navigate(['words', id]);
   }
 

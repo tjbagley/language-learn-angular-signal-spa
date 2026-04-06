@@ -38,7 +38,6 @@ export class ListEditPage {
   });
   isFormSubmitted = signal<boolean>(false);
   isAddMode = computed<boolean>(() => !this.id);
-  headingPrefix = computed<string>(() => (this.isAddMode() ? 'Add' : 'Edit'));
 
   get items(): FormArray {
     return this.listFormGroup.get('items') as FormArray;

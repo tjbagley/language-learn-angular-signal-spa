@@ -5,6 +5,7 @@ import { WordsAndPhrasesStore } from '../../store/words-phrases-store';
 import { CategoriesStore } from '../../store/categories-store';
 import { WordOrPhrase } from '../../models/word-or-phrase';
 import { FormHelper } from '../../helpers/form-helper';
+import { ListsStore } from '../../store/lists-store';
 
 @Component({
   selector: 'app-word-edit-page',
@@ -15,6 +16,7 @@ import { FormHelper } from '../../helpers/form-helper';
 export class WordEditPage {
   wordsAndPhrasesStore = inject(WordsAndPhrasesStore);
   categoriesStore = inject(CategoriesStore);
+  listsStore = inject(ListsStore);
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -31,7 +33,6 @@ export class WordEditPage {
   });
   isFormSubmitted = signal<boolean>(false);
   isAddMode = computed<boolean>(() => !this.id);
-  headingPrefix = computed<string>(() => this.isAddMode() ? 'Add' : 'Edit');
 
   handleSubmit(): void {
     this.isFormSubmitted.set(true);
@@ -49,22 +50,37 @@ export class WordEditPage {
       } else {
         this.wordsAndPhrasesStore.updateWordOrPhrase(word);   
       }
-      this.router.navigate(['/words']);
+      this.navigateBack();
     }
   }
 
   handleCancel(): void {
-    this.router.navigate(['/words']);
+    this.navigateBack();
   }
 
   handleDelete(): void {
     if (confirm("Are you sure you want to remove this word/phrase?")) {
-      this.wordsAndPhrasesStore.removeWordOrPhrase(this.wordFormGroup.get('id')?.value ?? '');
+      const formId = this.wordFormGroup.get('id')?.value ?? '';
+      this.wordsAndPhrasesStore.removeWordOrPhrase(formId);
+      this.listsStore.removeWordFromLists(formId);
       this.router.navigate(['/words']);
     }
   }
 
   hasError(controlName: string): boolean {
     return FormHelper.hasError(controlName, this.wordFormGroup, this.isFormSubmitted());
+  }
+
+  private navigateBack(): void {
+    const wordEditReturnRoute = this.wordsAndPhrasesStore.wordEditReturnRoute();
+    if (wordEditReturnRoute.route) {
+      if (wordEditReturnRoute.routeId) {
+        this.router.navigate([wordEditReturnRoute.route, wordEditReturnRoute.routeId]);
+      } else {
+        this.router.navigate([wordEditReturnRoute.route]);
+      }
+    } else {
+      this.router.navigate(['/words']);
+    }
   }
 }

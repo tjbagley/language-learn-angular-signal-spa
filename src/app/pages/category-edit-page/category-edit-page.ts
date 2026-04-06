@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../models/category';
 import { FormHelper } from '../../helpers/form-helper';
+import { WordsAndPhrasesStore } from '../../store/words-phrases-store';
 
 @Component({
   selector: 'app-category-edit-page',
@@ -13,6 +14,7 @@ import { FormHelper } from '../../helpers/form-helper';
 })
 export class CategoryEditPage {
   categoriesStore = inject(CategoriesStore);
+  wordsAndPhrasesStore = inject(WordsAndPhrasesStore);
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -52,7 +54,9 @@ export class CategoryEditPage {
   
     handleDelete(): void {
       if (confirm("Are you sure you want to remove this category?")) {
-        this.categoriesStore.removeCategory(this.categoryFormGroup.get('id')?.value ?? '');
+        const formId = this.categoryFormGroup.get('id')?.value ?? '';
+        this.categoriesStore.removeCategory(formId);
+        this.wordsAndPhrasesStore.removeCategory(formId);
         this.router.navigate(['/categories']);
       }
     }
